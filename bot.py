@@ -2,7 +2,7 @@ import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import os
 import qrcode
-from pyzbar.pyzbar import decode
+# from pyzbar.pyzbar import decode
 from telegram import Update
 from PIL import Image
 PORT = int(os.environ.get('PORT', 5000))
@@ -35,7 +35,7 @@ def QrCreator(update, context):
     os.remove("QrCode.png")
    
 
-def decodeQr(update: Update, context: CallbackContext):
+# def decodeQr(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
     if update.message.photo:
     	    id_img = update.message.photo[-1].file_id
