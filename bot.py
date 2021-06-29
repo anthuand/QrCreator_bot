@@ -2,10 +2,10 @@ import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import os
 import qrcode
-# from pyzbar.pyzbar import decode
+from pyzbar.pyzbar import decode
 from telegram import Update
 from PIL import Image
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', 8443))
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -35,7 +35,7 @@ def QrCreator(update, context):
     os.remove("QrCode.png")
    
 
-# def decodeQr(update: Update, context: CallbackContext):
+def decodeQr(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
     if update.message.photo:
     	    id_img = update.message.photo[-1].file_id
@@ -77,7 +77,7 @@ def main():
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, QrCreator))
-    # dp.add_handler(MessageHandler(Filters.photo, decodeQr))
+    dp.add_handler(MessageHandler(Filters.photo, decodeQr))
 
     # log all errors
     dp.add_error_handler(error)
@@ -87,8 +87,12 @@ def main():
                           port=int(PORT),
                           url_path=TOKEN)
     updater.bot.setWebhook('https://qr-creator-bot.herokuapp.com/' + TOKEN)
+    # telegram.error.BadRequest: Bad webhook: webhook can be set up only on ports 80, 88, 443 or 8443
 
     updater.idle()
 
 if __name__ == '__main__':
     main()
+
+# https://github.com/heroku/heroku-buildpack-apt.git
+# heroku/python
