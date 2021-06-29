@@ -77,7 +77,7 @@ def main():
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, QrCreator))
-    dp.add_handler(MessageHandler(Filters.photo, decodeQr))
+    # dp.add_handler(MessageHandler(Filters.photo, decodeQr))
 
     # log all errors
     dp.add_error_handler(error)
