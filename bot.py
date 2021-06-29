@@ -32,6 +32,7 @@ def QrCreator(update, context):
 
     ft = open('QrCode.png','rb')
     update.message.reply_photo(photo=ft, caption=info)
+    os.remove("QrCode.png")
    
 
 def decodeQr(update: Update, context: CallbackContext):
@@ -47,14 +48,18 @@ def decodeQr(update: Update, context: CallbackContext):
     try:
         result = decode(Image.open('qrcode.png'))
         context.bot.sendMessage(chat_id=chat_id, text=result[0].data.decode("utf-8"))
-        os.remove("QrCode.png")
+        os.remove("qrcode.png")
     except Exception as e:
         context.bot.sendMessage(chat_id=chat_id, text=str(e))
 	
 
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+    update.message.reply_text( 
+        """Hola con este bot puedes crear y leer codigos Qr.
+        Para crear un Qr solo manda un mensaje con el contenido del qr.
+        Para leer el Qr manda una foto del mismo.
+    """)
 
 def error(update, context):
     """Log Errors caused by Updates."""
@@ -81,7 +86,7 @@ def main():
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
-    updater.bot.setWebhook('https://yourherokuappname.herokuapp.com/' + TOKEN)
+    updater.bot.setWebhook('https://qr-creator-bot.herokuapp.com/' + TOKEN)
 
     updater.idle()
 
