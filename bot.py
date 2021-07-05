@@ -83,17 +83,16 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN)
-    updater.bot.setWebhook('https://qr-creator-bot.herokuapp.com/' + TOKEN)
-    # telegram.error.BadRequest: Bad webhook: webhook can be set up only on ports 80, 88, 443 or 8443
+    # updater.start_webhook(listen="0.0.0.0",
+    #                       port=int(PORT),
+    #                       url_path=TOKEN)
+    # updater.bot.setWebhook('https://qr-creator-bot.herokuapp.com/' + TOKEN)
+
 
     updater.idle()
+    updater.start_polling()
 
 if __name__ == '__main__':
     main()
 
-# https://github.com/heroku/heroku-buildpack-apt.git
-# heroku/python
 
