@@ -5,7 +5,7 @@ import qrcode
 from pyzbar.pyzbar import decode
 from telegram import Update
 from PIL import Image
-PORT = int(os.environ.get('PORT', 443))
+PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -96,3 +96,4 @@ if __name__ == '__main__':
 
 # https://github.com/heroku/heroku-buildpack-apt.git
 # heroku/python
+
