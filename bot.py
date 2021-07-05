@@ -5,7 +5,8 @@ import qrcode
 from pyzbar.pyzbar import decode
 from telegram import Update
 from PIL import Image
-PORT = int(os.environ.get('PORT', 5000))
+
+PORT = int(os.environ.get('PORT'))
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -83,14 +84,14 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    # updater.start_webhook(listen="0.0.0.0",
-    #                       port=int(PORT),
-    #                       url_path=TOKEN)
-    # updater.bot.setWebhook('https://qr-creator-bot.herokuapp.com/' + TOKEN)
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook('https://qr-creator-bot.herokuapp.com/' + TOKEN)
 
 
     updater.idle()
-    updater.start_polling()
+    # updater.start_polling()
 
 if __name__ == '__main__':
     main()
